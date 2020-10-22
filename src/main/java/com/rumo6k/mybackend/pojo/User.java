@@ -1,42 +1,25 @@
 package com.rumo6k.mybackend.pojo;
 
-import java.util.List;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "users")
 public class User {
-  private String nome;
-  private Integer idade;
-  private Boolean active;
-  private List<String> cards;
+  private String name;
+  private Integer age;
 
-  public String getNome() {
-    return nome;
+  public String getName() {
+    return name;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public Integer getIdade() {
-    return idade;
+  public Integer getAge() {
+    return age;
   }
 
-  public void setIdade(Integer idade) {
-    this.idade = idade;
-  }
-
-  public Boolean getActive() {
-    return active;
-  }
-
-  public void setActive(Boolean active) {
-    this.active = active;
-  }
-
-  public List<String> getCards() {
-    return cards;
-  }
-
-  public void setCards(List<String> cards) {
-    this.cards = cards;
+  public void setAge(Integer age) {
+    this.age = age;
   }
 }

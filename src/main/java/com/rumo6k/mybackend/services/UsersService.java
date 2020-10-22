@@ -5,6 +5,8 @@ import com.rumo6k.mybackend.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsersService {
 
@@ -15,10 +17,11 @@ public class UsersService {
     this.usersRepository = usersRepository;
   }
 
-  public User getUserById(String userId) {
-    User user = usersRepository.findUserById(userId);
-    user.setActive(true);
+  public List<User> getUsersByName(String name) {
+    return usersRepository.findUsersByName(name);
+  }
 
-    return user;
+  public List<User> getUsersByAge(Integer age) {
+    return usersRepository.findUsersByAge(age);
   }
 }
