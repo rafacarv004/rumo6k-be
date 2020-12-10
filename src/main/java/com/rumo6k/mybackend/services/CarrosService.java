@@ -5,6 +5,9 @@ import com.rumo6k.mybackend.repositories.CarrosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CarrosService {
 
@@ -22,5 +25,9 @@ public class CarrosService {
 
   private void enrichCarroData(CarroRegistro carroRegistro) {
     carroRegistro.setTimestamp(System.currentTimeMillis());
+  }
+
+  public List<CarroRegistro> busca(Map<String, String> buscaParams) {
+    return carrosRepository.findCarrosByParams(buscaParams);
   }
 }

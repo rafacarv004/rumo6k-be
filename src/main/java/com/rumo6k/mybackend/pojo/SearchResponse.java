@@ -2,16 +2,16 @@ package com.rumo6k.mybackend.pojo;
 
 import java.util.List;
 
-public class SearchResponse {
+public class SearchResponse<T> {
 
-  private List<User> searchResults;
+  private List<T> searchResults;
   private SearchResponsePagination pagination;
 
-  public List<User> getSearchResults() {
+  public List<T> getSearchResults() {
     return searchResults;
   }
 
-  public void setSearchResults(List<User> searchResults) {
+  public void setSearchResults(List<T> searchResults) {
     this.searchResults = searchResults;
   }
 

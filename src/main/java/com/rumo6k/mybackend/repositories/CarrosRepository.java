@@ -5,4 +5,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository(value = "carros")
-public interface CarrosRepository extends PagingAndSortingRepository<CarroRegistro, String> {}
+public interface CarrosRepository extends PagingAndSortingRepository<CarroRegistro, String>, CarrosRepositoryCustom {}

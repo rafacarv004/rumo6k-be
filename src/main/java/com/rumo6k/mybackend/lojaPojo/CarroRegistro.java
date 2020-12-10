@@ -1,5 +1,8 @@
 package com.rumo6k.mybackend.lojaPojo;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "carros")
 public class CarroRegistro {
   private String marca;
   private String modelo;
