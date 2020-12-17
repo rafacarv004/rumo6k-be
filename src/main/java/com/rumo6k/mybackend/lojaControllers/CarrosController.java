@@ -4,9 +4,12 @@ import static com.rumo6k.mybackend.utils.CarroUtils.getCarroRegistroFromParams;
 
 import com.rumo6k.mybackend.lojaPojo.CarroParams;
 import com.rumo6k.mybackend.lojaPojo.CarroRegistro;
+import com.rumo6k.mybackend.pojo.PaginationParams;
 import com.rumo6k.mybackend.pojo.SearchResponse;
+import com.rumo6k.mybackend.pojo.SearchResponsePagination;
 import com.rumo6k.mybackend.services.CarrosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,6 +44,8 @@ public class CarrosController {
 
   @RequestMapping(method = RequestMethod.GET, path = "/carros")
   public ResponseEntity registrarCarro(
+      @RequestParam(required = false) Integer currentPage,
+      @RequestParam(required = false) Integer pageSize,
       @RequestParam(required = false) String marca,
       @RequestParam(required = false) String modelo,
       @RequestParam(required = false) String cor,
@@ -89,9 +94,22 @@ public class CarrosController {
       buscaParams.put("km", km);
     }
 
-    List<CarroRegistro> carros = carrosService.busca(buscaParams);
+    PaginationParams paginationParams = new PaginationParams();
+    paginationParams.setCurrentPage(currentPage);
+    paginationParams.setPageSize(pageSize);
+
+    Page<CarroRegistro> carros = carrosService.busca(buscaParams, paginationParams);
     SearchResponse<CarroRegistro> response = new SearchResponse<>();
-    response.setSearchResults(carros);
+
+    SearchResponsePagination searchResponsePagination = new SearchResponsePagination();
+    searchResponsePagination.setCurrentPageNumber(carros.getNumber()); // página atual
+    searchResponsePagination.setTotalResultsCount(carros.getTotalElements()); // número total no banco
+    searchResponsePagination.setMaxResultsPerPage(carros.getSize()); // número máximo de itens por página (foi enviado na request)
+    searchResponsePagination.setCurrentResultsCount(carros.getNumberOfElements()); // número de itens na página atual
+    searchResponsePagination.setTotalPagesCount(carros.getTotalPages()); // número total de páginas
+
+    response.setSearchResults(carros.getContent());
+    response.setPagination(searchResponsePagination);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }

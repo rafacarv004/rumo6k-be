@@ -1,9 +1,13 @@
 package com.rumo6k.mybackend.lojaPojo;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "carros")
 public class CarroRegistro {
+
+  @Id
+  private String id;
   private String marca;
   private String modelo;
   private String cor;
@@ -14,6 +18,14 @@ public class CarroRegistro {
   private String placa;
   private String km;
   private Long timestamp;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public String getMarca() {
     return marca;
