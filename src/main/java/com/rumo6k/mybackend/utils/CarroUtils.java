@@ -7,6 +7,7 @@ public class CarroUtils {
 
   public static CarroRegistro getCarroRegistroFromParams(CarroParams carroParams) {
     CarroRegistro carroRegistro = new CarroRegistro();
+    carroRegistro.setId(carroParams.getId());
     carroRegistro.setAno(carroParams.getAno());
     carroRegistro.setCategoria(carroParams.getCategoria());
     carroRegistro.setCombustivel(carroParams.getCombustivel());

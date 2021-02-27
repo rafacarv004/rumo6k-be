@@ -44,4 +44,12 @@ public class CarrosService {
 
     return carrosRepository.findCarrosByParams(buscaParams, pagination);
   }
+
+  public CarroRegistro getCarro(String id) {
+    return carrosRepository.findCarroById(id);
+  }
+
+  public void updateCarro(CarroRegistro carroRegistro) {
+    carrosRepository.save(carroRegistro);
+  }
 }

@@ -4,6 +4,7 @@ import static com.rumo6k.mybackend.utils.CarroUtils.getCarroRegistroFromParams;
 
 import com.rumo6k.mybackend.lojaPojo.CarroParams;
 import com.rumo6k.mybackend.lojaPojo.CarroRegistro;
+import com.rumo6k.mybackend.pojo.DefaultResponse;
 import com.rumo6k.mybackend.pojo.PaginationParams;
 import com.rumo6k.mybackend.pojo.SearchResponse;
 import com.rumo6k.mybackend.pojo.SearchResponsePagination;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.websocket.server.PathParam;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -43,7 +47,7 @@ public class CarrosController {
   }
 
   @RequestMapping(method = RequestMethod.GET, path = "/carros")
-  public ResponseEntity registrarCarro(
+  public ResponseEntity findCarros(
       @RequestParam(required = false) Integer currentPage,
       @RequestParam(required = false) Integer pageSize,
       @RequestParam(required = false) String marca,
@@ -112,6 +116,23 @@ public class CarrosController {
     response.setPagination(searchResponsePagination);
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  @RequestMapping(method = RequestMethod.GET, path = "/carros/{id}")
+  public ResponseEntity findCarros(@PathVariable String id) {
+    CarroRegistro carroRegistro = carrosService.getCarro(id);
+
+    DefaultResponse<CarroRegistro> response = new DefaultResponse<>(carroRegistro);
+
+    return ResponseEntity.status(HttpStatus.OK).body(response);
+  }
+
+  @RequestMapping(method = RequestMethod.POST, path = "/carros/update")
+  public ResponseEntity updateCarro(@RequestBody CarroParams carroParams) {
+    CarroRegistro carroRegistro = getCarroRegistroFromParams(carroParams);
+    carrosService.updateCarro(carroRegistro);
+
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 
 }

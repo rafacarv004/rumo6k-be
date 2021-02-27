@@ -9,4 +9,5 @@ import java.util.Map;
 
 public interface CarrosRepositoryCustom {
   Page<CarroRegistro> findCarrosByParams(Map<String, String> params, PaginationParams pagination);
+  CarroRegistro findCarroById(String id);
 }

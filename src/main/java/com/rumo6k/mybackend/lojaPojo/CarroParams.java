@@ -1,6 +1,7 @@
 package com.rumo6k.mybackend.lojaPojo;
 
 public class CarroParams {
+  private String id;
   private String marca;
   private String modelo;
   private String cor;
@@ -10,6 +11,14 @@ public class CarroParams {
   private String categoria;
   private String placa;
   private String km;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public String getMarca() {
     return marca;

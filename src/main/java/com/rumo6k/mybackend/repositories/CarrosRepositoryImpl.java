@@ -49,4 +49,12 @@ public class CarrosRepositoryImpl implements CarrosRepositoryCustom {
 
     return PageableExecutionUtils.getPage(carroRegistroList, pageable, () -> mongoOperations.count(countQuery, CarroRegistro.class));
   }
+
+  @Override
+  public CarroRegistro findCarroById(String id) {
+    Query query = new Query();
+    query.addCriteria(Criteria.where("id").is(id));
+
+    return mongoOperations.findOne(query, CarroRegistro.class);
+  }
 }
